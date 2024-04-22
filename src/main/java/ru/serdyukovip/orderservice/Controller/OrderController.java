@@ -1,17 +1,22 @@
 package ru.serdyukovip.orderservice.Controller;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import ru.serdyukovip.orderservice.dto.OrderRequest;
+import ru.serdyukovip.orderservice.service.OrderService;
 
 @RestController
 @RequestMapping("/api/order")
+@RequiredArgsConstructor
 public class OrderController {
 
+    private final OrderService orderService;
+
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public String placeOrder(@RequestBody OrderRequest orderRequest) {
-        return "Order Placed Succefully";
+        orderService.placeOrder(orderRequest);
+        return "Order Placed Successfully";
     }
 }
